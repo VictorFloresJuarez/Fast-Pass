@@ -13,7 +13,6 @@ client = discord.Client()
 keys = db.keys()
 print(keys)
 print(db['mensajeAyuda'])
-print('sus')
 
 @client.event
 async def on_ready():
