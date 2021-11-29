@@ -12,7 +12,6 @@ client = discord.Client()
 
 keys = db.keys()
 print(keys)
-print(db['mensajeAyuda'])
 
 @client.event
 async def on_ready():
