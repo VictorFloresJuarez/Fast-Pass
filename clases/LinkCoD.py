@@ -1,15 +1,15 @@
 from replit import db
 import requests
 
-
-class LinkFortnite:
-
+class LinkCoD:
+  #Constructor del objeto
   def __init__(self, cadenaIntroducida):
     self._cadenaIntroducida = cadenaIntroducida
 
 
-  def procesarCadenaEntrada(self):
-    argumentosPlataforma = db['plataformasFortnite']
+  #Función que procesa la entrada del usuario para generar el link
+  def procesarEntrada(self):
+    argumentosPlataforma = db['plataformasCoD']
     self._argumentosFinal = db['argumentosFinal']
 
     paramsUnoPrecio = obtenerPrecioBajo(self._cadenaIntroducida)
@@ -21,27 +21,28 @@ class LinkFortnite:
     self._argumentosFinal['params']=[keyPlataforma, '', paramsUnoPrecio, paramsDosPrecio]
     self._params = self._argumentosFinal
     
-    r = requests.get('https://www.eldorado.gg/fortnite-accounts-for-sale/a/16-1-0', self._params)
+    r = requests.get('https://www.eldorado.gg/call-of-duty-accounts/a/35-0-0', self._params)
     self._linkIngresado = r.url
 
-  def procesarLinkFortnite(self):
+  def procesarLinkCoD(self):
     for x in range(len(db['parteInutilParams'])):
       self._linkIngresado = self._linkIngresado.replace(db['parteInutilParams'], '')
-    for x in range(len(db['parteInutilLinkFortnite'])):
-      self._linkIngresado = self._linkIngresado.replace(db['parteInutilLinkFortnite'], '=')
-
-  def getLinkIngresado(self):
-    return self._linkIngresado
+    for x in range(len(db['parteInutilLinkCOD'])):
+      self._linkIngresado = self._linkIngresado.replace(db['parteInutilLinkCOD'], '=')
 
   def prepararMensaje(self):
-    mensaje_para_buscar = f"""Mira la cuenta de Fortnite que encontré:
+    mensaje_para_buscar = f"""Mira la cuenta de CoD que encontré:
     {self._linkIngresado}"""
     return mensaje_para_buscar
 
 
+
+
+
+
 def comprobarArgumentosPlataforma(cadenaIntroducida):
-    plataformasPosiblesFortnite = db['plataformasFortnite']
-    for keyPlataforma in plataformasPosiblesFortnite:
+    plataformasPosiblesCoD = db['plataformasCoD']
+    for keyPlataforma in plataformasPosiblesCoD:
       if keyPlataforma in cadenaIntroducida:
         return keyPlataforma
 

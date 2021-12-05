@@ -1,50 +1,36 @@
 from replit import db
 import requests
 
-
-class LinkFortnite:
-
+class LinkPlayStation:
+  #Constructor del objeto
   def __init__(self, cadenaIntroducida):
     self._cadenaIntroducida = cadenaIntroducida
 
 
-  def procesarCadenaEntrada(self):
-    argumentosPlataforma = db['plataformasFortnite']
+  #Función que procesa la entrada del usuario para generar el link
+  def procesarEntrada(self):
     self._argumentosFinal = db['argumentosFinal']
 
     paramsUnoPrecio = obtenerPrecioBajo(self._cadenaIntroducida)
     paramsDosPrecio = obtenerPrecioAlto(self._cadenaIntroducida)
 
-    keyPlataforma = comprobarArgumentosPlataforma(self._cadenaIntroducida)
-    keyPlataforma = argumentosPlataforma[keyPlataforma]
 
-    self._argumentosFinal['params']=[keyPlataforma, '', paramsUnoPrecio, paramsDosPrecio]
+    self._argumentosFinal['params']=['', '', paramsUnoPrecio, paramsDosPrecio]
     self._params = self._argumentosFinal
     
-    r = requests.get('https://www.eldorado.gg/fortnite-accounts-for-sale/a/16-1-0', self._params)
+    r = requests.get('https://www.eldorado.gg/psn-accounts/a/104-1-0', self._params)
     self._linkIngresado = r.url
 
-  def procesarLinkFortnite(self):
+  def procesarLinkPlayStation(self):
     for x in range(len(db['parteInutilParams'])):
       self._linkIngresado = self._linkIngresado.replace(db['parteInutilParams'], '')
-    for x in range(len(db['parteInutilLinkFortnite'])):
-      self._linkIngresado = self._linkIngresado.replace(db['parteInutilLinkFortnite'], '=')
-
-  def getLinkIngresado(self):
-    return self._linkIngresado
+    for x in range(len(db['parteInutilPlayStation'])):
+      self._linkIngresado = self._linkIngresado.replace(db['parteInutilPlayStation'], '=')
 
   def prepararMensaje(self):
-    mensaje_para_buscar = f"""Mira la cuenta de Fortnite que encontré:
+    mensaje_para_buscar = f"""Mira la cuenta de PlayStation que encontré:
     {self._linkIngresado}"""
     return mensaje_para_buscar
-
-
-def comprobarArgumentosPlataforma(cadenaIntroducida):
-    plataformasPosiblesFortnite = db['plataformasFortnite']
-    for keyPlataforma in plataformasPosiblesFortnite:
-      if keyPlataforma in cadenaIntroducida:
-        return keyPlataforma
-
 
 def obtenerPrecioBajo(cadenaIntroducida):
   precioBajo = 'precioBajo='
