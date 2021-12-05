@@ -2,12 +2,12 @@ from replit import db
 import requests
 
 class LinkCoD:
-  #Constructor del objeto
+  # Object builder
   def __init__(self, cadenaIntroducida):
     self._cadenaIntroducida = cadenaIntroducida
 
 
-  #Función que procesa la entrada del usuario para generar el link
+  # Function that processes user input to generate the link. 
   def procesarEntrada(self):
     argumentosPlataforma = db['plataformasCoD']
     self._argumentosFinal = db['argumentosFinal']
@@ -24,12 +24,15 @@ class LinkCoD:
     r = requests.get('https://www.eldorado.gg/call-of-duty-accounts/a/35-0-0', self._params)
     self._linkIngresado = r.url
 
+    
+  # Function that processes the generated link to make it correct
   def procesarLinkCoD(self):
     for x in range(len(db['parteInutilParams'])):
       self._linkIngresado = self._linkIngresado.replace(db['parteInutilParams'], '')
     for x in range(len(db['parteInutilLinkCOD'])):
       self._linkIngresado = self._linkIngresado.replace(db['parteInutilLinkCOD'], '=')
 
+  # Function that prepares the final message to be sent with the link
   def prepararMensaje(self):
     mensaje_para_buscar = f"""Mira la cuenta de CoD que encontré:
     {self._linkIngresado}"""
@@ -39,14 +42,14 @@ class LinkCoD:
 
 
 
-
+# This function checks the introduced platform
 def comprobarArgumentosPlataforma(cadenaIntroducida):
     plataformasPosiblesCoD = db['plataformasCoD']
     for keyPlataforma in plataformasPosiblesCoD:
       if keyPlataforma in cadenaIntroducida:
         return keyPlataforma
 
-
+# This function gets the lowest price
 def obtenerPrecioBajo(cadenaIntroducida):
   precioBajo = 'precioBajo='
   precioAlto = 'precioAlto='
@@ -61,6 +64,7 @@ def obtenerPrecioBajo(cadenaIntroducida):
     return cadenaFinalBajo
 
 
+# This function gets the highest price
 def obtenerPrecioAlto(cadenaIntroducida):
   precioAlto = 'precioAlto='
   precioFin = 'finPrecio'

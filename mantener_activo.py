@@ -1,4 +1,4 @@
-#NO MANIPULAR, MANTIENE ACTIVO AL BOT 24/7
+# Do not manipulate, keeps the bot active 24/7
 
 from flask import Flask
 from threading import Thread

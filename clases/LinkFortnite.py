@@ -3,11 +3,11 @@ import requests
 
 
 class LinkFortnite:
-
+  # Object builder
   def __init__(self, cadenaIntroducida):
     self._cadenaIntroducida = cadenaIntroducida
 
-
+  # Function that processes user input to generate the link. 
   def procesarCadenaEntrada(self):
     argumentosPlataforma = db['plataformasFortnite']
     self._argumentosFinal = db['argumentosFinal']
@@ -24,6 +24,7 @@ class LinkFortnite:
     r = requests.get('https://www.eldorado.gg/fortnite-accounts-for-sale/a/16-1-0', self._params)
     self._linkIngresado = r.url
 
+  # Function that processes the generated link to make it correct
   def procesarLinkFortnite(self):
     for x in range(len(db['parteInutilParams'])):
       self._linkIngresado = self._linkIngresado.replace(db['parteInutilParams'], '')
@@ -33,12 +34,14 @@ class LinkFortnite:
   def getLinkIngresado(self):
     return self._linkIngresado
 
+  # Function that prepares the final message to be sent with the link
   def prepararMensaje(self):
     mensaje_para_buscar = f"""Mira la cuenta de Fortnite que encontré:
     {self._linkIngresado}"""
     return mensaje_para_buscar
 
 
+# This function checks the introduced platform
 def comprobarArgumentosPlataforma(cadenaIntroducida):
     plataformasPosiblesFortnite = db['plataformasFortnite']
     for keyPlataforma in plataformasPosiblesFortnite:
@@ -46,6 +49,7 @@ def comprobarArgumentosPlataforma(cadenaIntroducida):
         return keyPlataforma
 
 
+# This function gets the lowest price
 def obtenerPrecioBajo(cadenaIntroducida):
   precioBajo = 'precioBajo='
   precioAlto = 'precioAlto='
@@ -60,6 +64,7 @@ def obtenerPrecioBajo(cadenaIntroducida):
     return cadenaFinalBajo
 
 
+# This function gets the highest price
 def obtenerPrecioAlto(cadenaIntroducida):
   precioAlto = 'precioAlto='
   precioFin = 'finPrecio'

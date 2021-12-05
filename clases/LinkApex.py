@@ -2,12 +2,12 @@ from replit import db
 import requests
 
 class LinkApex:
-  #Constructor del objeto
+  # Object builder
   def __init__(self, cadenaIntroducida):
     self._cadenaIntroducida = cadenaIntroducida
 
 
-  #Función que procesa la entrada del usuario para generar el link
+  # Function that processes user input to generate the link. 
   def procesarEntrada(self):
     argumentosPlataforma = db['plataformasApex']
     self._argumentosFinal = db['argumentosFinal']
@@ -24,12 +24,14 @@ class LinkApex:
     r = requests.get('https://www.eldorado.gg/apex-legends-accounts/a/33-0-0', self._params)
     self._linkIngresado = r.url
 
+  # Function that processes the generated link to make it correct
   def procesarLinkApex(self):
     for x in range(len(db['parteInutilParams'])):
       self._linkIngresado = self._linkIngresado.replace(db['parteInutilParams'], '')
     for x in range(len(db['parteInutilLinkApex'])):
       self._linkIngresado = self._linkIngresado.replace(db['parteInutilLinkApex'], '=')
 
+  # Function that prepares the final message to be sent with the link
   def prepararMensaje(self):
     mensaje_para_buscar = f"""Mira la cuenta de Apex que encontré:
     {self._linkIngresado}"""
@@ -39,7 +41,7 @@ class LinkApex:
 
 
 
-
+# This function checks the introduced platform
 def comprobarArgumentosPlataforma(cadenaIntroducida):
     plataformasPosiblesApex = db['plataformasApex']
     for keyPlataforma in plataformasPosiblesApex:
@@ -47,6 +49,7 @@ def comprobarArgumentosPlataforma(cadenaIntroducida):
         return keyPlataforma
 
 
+# This function gets the lowest price
 def obtenerPrecioBajo(cadenaIntroducida):
   precioBajo = 'precioBajo='
   precioAlto = 'precioAlto='
@@ -60,7 +63,7 @@ def obtenerPrecioBajo(cadenaIntroducida):
     cadenaFinalBajo = 'lowestPrice='+ cadenaParaArgumentosUno
     return cadenaFinalBajo
 
-
+# This function gets the highest price
 def obtenerPrecioAlto(cadenaIntroducida):
   precioAlto = 'precioAlto='
   precioFin = 'finPrecio'

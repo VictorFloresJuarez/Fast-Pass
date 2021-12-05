@@ -2,12 +2,12 @@ from replit import db
 import requests
 
 class LinkGtaV:
-  #Constructor del objeto
+  # Object builder
   def __init__(self, cadenaIntroducida):
     self._cadenaIntroducida = cadenaIntroducida
 
 
-  #Función que procesa la entrada del usuario para generar el link
+  # Function that processes user input to generate the link. 
   def procesarEntrada(self):
     argumentosPlataforma = db['plataformasGtaV']
     self._argumentosFinal = db['argumentosFinal']
@@ -24,12 +24,14 @@ class LinkGtaV:
     r = requests.get('https://www.eldorado.gg/gta-5-modded-accounts/a/25-1-0', self._params)
     self._linkIngresado = r.url
 
+  # Function that processes the generated link to make it correct
   def procesarLinkGtaV(self):
     for x in range(len(db['parteInutilParams'])):
       self._linkIngresado = self._linkIngresado.replace(db['parteInutilParams'], '')
     for x in range(len(db['parteInutilLinkGtaV'])):
       self._linkIngresado = self._linkIngresado.replace(db['parteInutilLinkGtaV'], '=')
 
+  # Function that prepares the final message to be sent with the link
   def prepararMensaje(self):
     mensaje_para_buscar = f"""Mira la cuenta de Gta V que encontré:
     {self._linkIngresado}"""
@@ -39,7 +41,7 @@ class LinkGtaV:
 
 
 
-
+# This function checks the introduced platform
 def comprobarArgumentosPlataforma(cadenaIntroducida):
     plataformasPosiblesGtaV = db['plataformasGtaV']
     for keyPlataforma in plataformasPosiblesGtaV:
@@ -47,6 +49,7 @@ def comprobarArgumentosPlataforma(cadenaIntroducida):
         return keyPlataforma
 
 
+# This function gets the lowest price
 def obtenerPrecioBajo(cadenaIntroducida):
   precioBajo = 'precioBajo='
   precioAlto = 'precioAlto='
@@ -61,6 +64,7 @@ def obtenerPrecioBajo(cadenaIntroducida):
     return cadenaFinalBajo
 
 
+# This function gets the highest price
 def obtenerPrecioAlto(cadenaIntroducida):
   precioAlto = 'precioAlto='
   precioFin = 'finPrecio'
